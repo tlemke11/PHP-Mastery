@@ -8,7 +8,18 @@
 
 namespace SOLID\SRP;
 
+class Employee {
+	//name
+	//id
+	//getters
+	//setters
+	//save function
+}
 
-class GoodExample {
+class HoursReport {
+	//passing in an employee ID will get you the appropriate hours
+}
 
+class CalculatePay {
+	//passing in an employee ID will get you the appropriate pay calculation
 }
