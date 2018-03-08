@@ -7,6 +7,17 @@
  * In a recent interview I was asked to create a Chess API that could be accessed from and used by Multiple Services
  * I Identified 3 main objects that the board game would have: Users, Board, Pieces.
  * This is an attempt to hash the idea out a little further as well as show a bit of code
+ *
+ *
+ * API endpoints
+ *
+ * /v1/board/1002/user/2/move -
+ *
+ * body of request -
+ *
+ *  {
+ *
+ *
  */
 
 /**
@@ -35,6 +46,10 @@ class GameBoard {
 	public function validateMove(){
 		//validates if the move is within the boundaries of the boardgame
 	}
+
+	private function promote(){
+		//this is called when a pawn reached the 8th level (check has to be done on the pawn
+	}
 }
 
 /**
@@ -42,16 +57,16 @@ class GameBoard {
  */
 
 abstract class GamePiece {
+	protected $id;
 	protected $location;
 	protected $inGame;
-	protected $orientation; //Im not sure this is the best approach, they mentioned attack movement in the interview
+	protected $color;
 
-	function __construct($UserObject1, $UserObject2, $coords){
-		//initialize all of the pieces to their proper places
+	function __construct($coords, $pieceID, $pieceColor){
 		$this->location = $coords;
 		$this->inGame = true;
-
-		//set orientation based on user color
+		$this->color = $pieceColor;
+		$this->id = $pieceID;
 	}
 	//this function will be overridden to allow for different moves, some will check for collisions
 	abstract protected function move(); //do we wnat to change this to an attack movement?
@@ -62,12 +77,20 @@ abstract class GamePiece {
 }
 
 class Queen extends GamePiece {
-	const validDirection = [N, S, E, W, NE, NW, SE, SW];
+	const validDirection = ['N', 'S', 'E', 'W', 'NE', 'NW', 'SE', 'SW'];
 
 	public function returnToGame(){
 		$this->inGame = true;
 	}
-	public function move(){
+	public function move($x,$y){
 		//the queen can move in multiple directions
+	}
+}
+
+class Pawn extends GamePiece {
+	const validDirection = ['N', 'NE', 'NW'];
+
+	public function move($x,$y){
+
 	}
 }
